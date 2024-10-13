@@ -26,7 +26,8 @@
     <script src="{{ asset('assets/dashboard/plugins/nprogress/nprogress.js') }}"></script>
 </head>
 
-<body class="" id="body">
+<body class="" id="body"
+    style="background-image: url({{ asset('assets/dashboard/img/Bachground-login.jpg') }}); background-size: cover; background-repeat: no-repeat; background-position: top center;">
     <div class="container d-flex align-items-center justify-content-center vh-100">
         <div class="row justify-content-center">
             <div class="col-lg-9 col-md-10">
@@ -58,6 +59,8 @@
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
+                                    @else
+                                        <span class="mt-2 d-block">Username berupa NISN Siswa Atau NUPTK Guru.</span>
                                     @enderror
                                 </div>
 

@@ -3,6 +3,8 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\MagangController;
 use App\Http\Controllers\TahunMagangController;
 use App\Http\Controllers\UserManageController;
 use Illuminate\Support\Facades\Auth;
@@ -52,5 +54,23 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
         Route::get('/edit/{id}', 'edit')->name('tahun-magang.edit');
         Route::put('/update/{id}', 'update')->name('tahun-magang.update');
         Route::delete('/destroy/{id}', 'destroy')->name('tahun-magang.destroy');
+    });
+
+    Route::controller(MagangController::class)->prefix('magang')->group(function () {
+        Route::get('/index', 'index')->name('magang.index');
+        Route::get('/create', 'create')->name('magang.create');
+        Route::post('/store', 'store')->name('magang.store');
+        Route::get('/edit/{id}', 'edit')->name('magang.edit');
+        Route::put('/update/{id}', 'update')->name('magang.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('magang.destroy');
+    });
+
+    Route::controller(LogbookController::class)->prefix('logbook')->group(function () {
+        Route::get('/index', 'index')->name('logbook.index');
+        Route::get('/create', 'create')->name('logbook.create');
+        Route::post('/store', 'store')->name('logbook.store');
+        Route::get('/edit/{id}', 'edit')->name('logbook.edit');
+        Route::put('/update/{id}', 'update')->name('logbook.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('logbook.destroy');
     });
 });

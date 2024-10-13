@@ -29,7 +29,7 @@
 
 <script>
     Ladda.bind(".ladda-button", {
-        timeout: 5000
+        timeout: 1000
     });
 
     /* 7.2. BIND PROGRESS BUTTONS AND SIMULATE LOADING PROGRESS */
