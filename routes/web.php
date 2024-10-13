@@ -40,7 +40,6 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
 
     Route::controller(JurusanController::class)->prefix('jurusan')->group(function () {
         Route::get('/index', 'index')->name('jurusan.index');
-        Route::get('/create', 'create')->name('jurusan.create');
         Route::post('/store', 'store')->name('jurusan.store');
         Route::put('/update/{id}', 'update')->name('jurusan.update');
         Route::delete('/destroy/{id}', 'destroy')->name('jurusan.destroy');
@@ -50,6 +49,7 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
         Route::get('/index', 'index')->name('tahun-magang.index');
         Route::get('/create', 'create')->name('tahun-magang.create');
         Route::post('/store', 'store')->name('tahun-magang.store');
+        Route::get('/edit/{id}', 'edit')->name('tahun-magang.edit');
         Route::put('/update/{id}', 'update')->name('tahun-magang.update');
         Route::delete('/destroy/{id}', 'destroy')->name('tahun-magang.destroy');
     });

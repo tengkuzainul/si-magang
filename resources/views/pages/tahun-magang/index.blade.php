@@ -54,15 +54,16 @@
                                                 class="mb-2 mr-2 badge badge-info rounded">{{ $magang->kd_tahun_magang }}</span>
                                         </td>
                                         <td>{{ $magang->tahun_magang }}</td>
-                                        <td>{{ $magang->tanggal_mulai }}</td>
-                                        <td>{{ $magang->tanggal_selesai }}</td>
+                                        <td>{{ date('d F Y', strtotime($magang->tanggal_mulai)) }}</td>
+                                        <td>{{ date('d F Y', strtotime($magang->tanggal_selesai)) }}</td>
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center g-2">
-                                                <a href="#" class="mb-1 btn btn-primary btn-sm mr-2">
+                                                <a href="{{ route('tahun-magang.edit', $magang->id) }}"
+                                                    class="mb-1 btn btn-primary btn-sm mr-2">
                                                     <i class=" mdi mdi-pencil-box"></i></a>
 
-                                                <a href="#" class="mb-1 btn btn-danger btn-sm"
-                                                    data-confirm-delete="true">
+                                                <a href="{{ route('tahun-magang.destroy', $magang->id) }}"
+                                                    class="mb-1 btn btn-danger btn-sm" data-confirm-delete="true">
                                                     <i class=" mdi mdi-delete"></i></a>
                                             </div>
                                         </td>

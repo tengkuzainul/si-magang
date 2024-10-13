@@ -42,7 +42,7 @@
                                     <input type="text" name="kode_magang" id="kode_magang"
                                         value="{{ old('kode_magang') }}"
                                         class="form-control @error('kode_magang') is-invalid @enderror"
-                                        placeholder="Kode Magang" aria-label="Kode Magang">
+                                        placeholder="(ex:20241)" aria-label="Kode Magang" autofocus>
 
                                     @error('kode_magang')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -56,17 +56,70 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-qrcode"></i>
+                                            <i class="mdi mdi-calendar"></i>
                                         </span>
                                     </div>
-                                    <input type="date" name="tahun_ajaran_magang" id="tahun_ajaran_magang"
+                                    <input type="string" name="tahun_ajaran_magang" id="tahun_ajaran_magang"
                                         value="{{ old('tahun_ajaran_magang') }}"
                                         class="form-control @error('tahun_ajaran_magang') is-invalid @enderror"
-                                        placeholder="Tahun Ajaran Magang" aria-label="Tahun Ajaran Magang">
+                                        placeholder="(ex:2024/2025)" aria-label="Tahun Ajaran Magang">
 
                                     @error('tahun_ajaran_magang')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="text-dark font-weight-medium" for="tanggal_mulai">Tanggal Mulai magang</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-calendar"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" name="tanggal_mulai" id="tanggal_mulai"
+                                        value="{{ old('tanggal_mulai') }}"
+                                        class="form-control @error('tanggal_mulai') is-invalid @enderror" placeholder=""
+                                        aria-label="Tanggal Mulai">
+
+                                    @error('tanggal_mulai')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label class="text-dark font-weight-medium" for="tanggal_selesai">Tanggal Selesai
+                                    Magang</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-calendar"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" name="tanggal_selesai" id="tanggal_selesai"
+                                        value="{{ old('tanggal_selesai') }}"
+                                        class="form-control @error('tanggal_selesai') is-invalid @enderror" placeholder=""
+                                        aria-label="Tanggal Selesai">
+
+                                    @error('tanggal_selesai')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <button class="ladda-button btn btn-danger btn-square btn-ladda"
+                                            data-style="slide-left" type="reset">
+                                            <span class="ladda-label"><i class="mdi mdi-replay mr-2"></i>Reset!</span>
+                                        </button>
+
+                                        <button class="ladda-button btn btn-success btn-square btn-ladda"
+                                            data-style="slide-left" type="submit">
+                                            <span class="ladda-label"><i
+                                                    class="mdi mdi-checkbox-marked-outline mr-2"></i>Submit!</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
