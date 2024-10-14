@@ -26,9 +26,11 @@
                 <div class="card-header card-header-border-bottom d-flex justify-content-between">
                     <h2>Data Magang</h2>
 
-                    <a href="{{ route('magang.create') }}" class="btn btn-outline-primary btn-sm text-uppercase">
-                        <i class=" mdi mdi-account-plus mr-1"></i>Add New Data
-                    </a>
+                    @role('super-admin')
+                        <a href="{{ route('magang.create') }}" class="btn btn-outline-primary btn-sm text-uppercase">
+                            <i class=" mdi mdi-account-plus mr-1"></i>Add New Data
+                        </a>
+                    @endrole
                 </div>
 
                 <div class="card-body">
@@ -37,12 +39,15 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Siswa</th>
-                                    <th>Nama Guru Pembimbing</th>
-                                    <th>Tahun Magang</th>
+                                    @hasanyrole('super-admin|guru-pembimbing')
+                                        <th>Nama Siswa</th>
+                                    @endhasanyrole
+                                    @hasanyrole('super-admin|siswa')
+                                        <th>Nama Guru Pembimbing</th>
+                                    @endhasanyrole
+                                    <th>Tahun Magang | Periode</th>
                                     <th>Tempat Magang</th>
-                                    <th>Lampiran Surat Magang</th>
-                                    <th>Lampiran Surat Balasan</th>
+                                    <th>Lampiran</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -51,15 +56,36 @@
                                 @foreach ($dataMagangs as $dataMagang)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $dataMagang->siswa->name }}</td>
-                                        <td>{{ $dataMagang->guruPembimbing->name }}</td>
-                                        <td>{{ $dataMagang->tahunAjaran->tahun_magang }}</td>
+                                        @hasanyrole('super-admin|guru-pembimbing')
+                                            <td>{{ $dataMagang->siswa->name }}</td>
+                                        @endhasanyrole
+                                        @hasanyrole('super-admin|siswa')
+                                            <td>{{ $dataMagang->guruPembimbing->name }}</td>
+                                        @endhasanyrole
+                                        <td>
+                                            <div class="d-felex-flex-column g-2">
+                                                <p class="mb-1">
+                                                    {{ $dataMagang->tahunAjaran->tahun_magang }}
+                                                </p>
+                                                <p>
+                                                    {{ date('d M Y', strtotime($dataMagang->tahunAjaran->tanggal_mulai)) . ' - ' . date('d M Y', strtotime($dataMagang->tahunAjaran->tanggal_selesai)) }}
+                                                </p>
+                                            </div>
+                                        </td>
                                         <td>{{ $dataMagang->tempat_magang }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-pill btn-sm"
-                                                data-toggle="modal" data-target="#modalSuratMagang-{{ $dataMagang->id }}">
-                                                <i class="mdi mdi-eye mr-2"></i>Lihat
-                                            </button>
+                                            <div class="d-flex flex-column g-2">
+                                                <button type="button" class="btn btn-dark btn-pill btn-sm mb-2"
+                                                    data-toggle="modal"
+                                                    data-target="#modalSuratMagang-{{ $dataMagang->id }}">
+                                                    <i class="mdi mdi-eye mr-2"></i>Surat Magang
+                                                </button>
+                                                <button type="button" class="btn btn-dark btn-pill btn-sm"
+                                                    data-toggle="modal"
+                                                    data-target="#modalSuratBalasan-{{ $dataMagang->id }}">
+                                                    <i class="mdi mdi-eye mr-2"></i>Surat Balasan
+                                                </button>
+                                            </div>
                                         </td>
 
                                         {{-- Modal Surat Magang --}}
@@ -92,13 +118,6 @@
                                         </div>
                                         {{-- End --}}
 
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-pill btn-sm"
-                                                data-toggle="modal" data-target="#modalSuratBalasan-{{ $dataMagang->id }}">
-                                                <i class="mdi mdi-eye mr-2"></i>Lihat
-                                            </button>
-                                        </td>
-
                                         {{-- Modal Surat Magang --}}
                                         <div class="modal fade" id="modalSuratBalasan-{{ $dataMagang->id }}" tabindex="-1"
                                             role="dialog" aria-labelledby="exampleModalTooltip" aria-hidden="true">
@@ -130,14 +149,28 @@
                                         {{-- End --}}
 
                                         <td>
-                                            <div class="d-flex justify-content-center align-items-center g-2">
-                                                <a href="{{ route('magang.edit', $dataMagang->id) }}"
-                                                    class="mb-1 btn btn-primary btn-sm mr-2">
-                                                    <i class=" mdi mdi-pencil-box"></i></a>
+                                            @role('super-admin')
+                                                <div class="d-flex justify-content-center align-items-center g-2">
+                                                    <a href="{{ route('magang.edit', $dataMagang->id) }}"
+                                                        class="mb-1 btn btn-primary btn-sm mr-2">
+                                                        <i class=" mdi mdi-pencil-box"></i></a>
 
-                                                <a href="{{ route('magang.destroy', $dataMagang->id) }}"
-                                                    class="mb-1 btn btn-danger btn-sm" data-confirm-delete="true">
-                                                    <i class=" mdi mdi-delete"></i></a>
+                                                    <a href="{{ route('magang.destroy', $dataMagang->id) }}"
+                                                        class="mb-1 btn btn-danger btn-sm" data-confirm-delete="true">
+                                                        <i class=" mdi mdi-delete"></i></a>
+                                                </div>
+                                            @endrole
+
+                                            <div class="d-flex flex-column mt-2">
+                                                <a href="{{ route('magang.tambahLogbook', $dataMagang->id) }}"
+                                                    class="btn btn-primary w-100 btn-pill">
+                                                    @role('siswa')
+                                                        <i class="mdi mdi-plus-circle mr-2"></i>Tambah Logbook
+                                                    @endrole
+                                                    @hasanyrole('super-admin|guru-pembimbing')
+                                                        <i class="mdi mdi-eye-circle mr-2"></i>Lihat Logbook
+                                                    @endhasanyrole
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>

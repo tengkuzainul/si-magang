@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class LogbookController extends Controller
+class LogBookController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -22,7 +22,7 @@ Auth::routes([
     'password.update' => false,
 ]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['role:super-admin']);
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['role:super-admin|guru-pembimbing|siswa']);
 
 Route::middleware(['auth', 'role:super-admin'])->group(function () {
     Route::controller(UserManageController::class)->prefix('user-manage')->group(function () {
@@ -57,20 +57,22 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
     });
 
     Route::controller(MagangController::class)->prefix('magang')->group(function () {
-        Route::get('/index', 'index')->name('magang.index');
-        Route::get('/create', 'create')->name('magang.create');
-        Route::post('/store', 'store')->name('magang.store');
         Route::get('/edit/{id}', 'edit')->name('magang.edit');
         Route::put('/update/{id}', 'update')->name('magang.update');
         Route::delete('/destroy/{id}', 'destroy')->name('magang.destroy');
     });
+});
 
-    Route::controller(LogbookController::class)->prefix('logbook')->group(function () {
-        Route::get('/index', 'index')->name('logbook.index');
-        Route::get('/create', 'create')->name('logbook.create');
-        Route::post('/store', 'store')->name('logbook.store');
-        Route::get('/edit/{id}', 'edit')->name('logbook.edit');
-        Route::put('/update/{id}', 'update')->name('logbook.update');
-        Route::delete('/destroy/{id}', 'destroy')->name('logbook.destroy');
+Route::middleware(['auth', 'role:super-admin|siswa'])->group(function () {
+    Route::controller(MagangController::class)->prefix('magang')->group(function () {
+        Route::get('/create', 'create')->name('magang.create');
+        Route::post('/store', 'store')->name('magang.store');
+    });
+});
+
+Route::middleware(['auth', 'role:super-admin|guru-pembimbing|siswa'])->group(function () {
+    Route::controller(MagangController::class)->prefix('magang')->group(function () {
+        Route::get('/index', 'index')->name('magang.index');
+        Route::get('/tambah-logbook/{id}', 'tambahDataLogBook')->name('magang.tambahLogbook');
     });
 });

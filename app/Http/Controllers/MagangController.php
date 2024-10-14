@@ -16,14 +16,33 @@ class MagangController extends Controller
      */
     public function index()
     {
-        $dataMagangs = Magang::with('siswa', 'guruPembimbing', 'tahunAjaran', 'logbooks')
-            ->latest()->get();
+        $userID = Auth::user();
+
+        if ($userID->hasRole('siswa')) {
+            $dataMagangs = Magang::with('siswa', 'guruPembimbing', 'tahunAjaran', 'logbooks')
+                ->where('siswa_id', $userID->id)->get();
+        } elseif ($userID->hasRole('guru-pembimbing')) {
+            $dataMagangs = Magang::with('siswa', 'guruPembimbing', 'tahunAjaran', 'logbooks')
+                ->where('guru_id', $userID->id)->get();
+        } else {
+            $dataMagangs = Magang::with('siswa', 'guruPembimbing', 'tahunAjaran', 'logbooks')
+                ->latest()->get();
+        }
+
 
         $title = 'Delete Magang!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
         return view('pages.data-magang.index', compact('dataMagangs'));
+    }
+
+    public function tambahDataLogBook(string $id)
+    {
+        Magang::with('siswa', 'guruPembimbing', 'tahunAjaran', 'logbooks')
+            ->findOrFail($id);
+
+        return view('pages.logbook.index');
     }
 
     /**
