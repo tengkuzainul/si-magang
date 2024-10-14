@@ -16,8 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('magang_id');
             $table->text('deskripsi');
             $table->string('lampiran_foto');
-            $table->enum('status', ['Menunggu', 'Diterima', 'Ditolak'])->default('Menunggu');
-            $table->string('alasan_ditolak')->nullable();
+            $table->enum('status', ['Menunggu', 'Disetujui'])->default('Menunggu');
             $table->foreign('magang_id')->references('id')->on('magangs')->onDelete('cascade');
             $table->timestamps();
         });

@@ -39,10 +39,21 @@ class MagangController extends Controller
 
     public function tambahDataLogBook(string $id)
     {
-        Magang::with('siswa', 'guruPembimbing', 'tahunAjaran', 'logbooks')
-            ->findOrFail($id);
+        $tahunAjaran = TahunMagang::all();
+        $user = Auth::user();
 
-        return view('pages.logbook.index');
+        if ($user->hasRole('siswa')) {
+            $magang = Magang::with('siswa', 'guruPembimbing', 'tahunAjaran', 'logbooks')
+                ->where('siswa_id', $user->id)
+                ->firstOrFail();
+        } elseif ($user->hasRole('super-admin') || $user->hasRole('guru-pembimbing')) {
+            $magang = Magang::with('siswa', 'guruPembimbing', 'tahunAjaran', 'logbooks')
+                ->findOrFail($id);
+        } else {
+            abort(403, 'Anda tidak memiliki akses ke data ini.');
+        }
+
+        return view('pages.logbook.index', compact('magang', 'tahunAjaran'));
     }
 
     /**

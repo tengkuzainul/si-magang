@@ -68,11 +68,23 @@ Route::middleware(['auth', 'role:super-admin|siswa'])->group(function () {
         Route::get('/create', 'create')->name('magang.create');
         Route::post('/store', 'store')->name('magang.store');
     });
+
+    Route::controller(LogbookController::class)->prefix('logbook')->group(function () {
+        Route::get('/select-tahun', 'selectTahunMagang')->name('logbook.selectTahun');
+        Route::post('/store/{id}', 'store')->name('logbook.store');
+        Route::patch('/ubahStatus/{id}', 'store')->name('logbook.ubahStatus');
+    });
 });
 
 Route::middleware(['auth', 'role:super-admin|guru-pembimbing|siswa'])->group(function () {
     Route::controller(MagangController::class)->prefix('magang')->group(function () {
         Route::get('/index', 'index')->name('magang.index');
         Route::get('/tambah-logbook/{id}', 'tambahDataLogBook')->name('magang.tambahLogbook');
+    });
+});
+
+Route::middleware(['auth', 'role:super-admin|guru-pembimbing'])->group(function () {
+    Route::controller(LogbookController::class)->prefix('logbook')->group(function () {
+        Route::patch('/ubahStatus/{id}', 'ubahStatus')->name('logbook.ubahStatus');
     });
 });

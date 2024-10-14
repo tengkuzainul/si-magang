@@ -18,7 +18,6 @@ class LogBook extends Model
         'deskripsi',
         'lampiran_foto',
         'status',
-        'alasan_ditolak',
     ];
 
     public function magang()
