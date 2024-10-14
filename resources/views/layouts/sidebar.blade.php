@@ -113,11 +113,11 @@
                                     </a>
                                 </li>
 
-                                <li class="{{ Request::is('logbook/*') ? 'active' : '' }}">
+                                {{-- <li class="{{ Request::is('logbook/*') ? 'active' : '' }}">
                                     <a class="sidenav-item-link" href="#">
                                         <span class="nav-text">LogBook Magang</span>
                                     </a>
-                                </li>
+                                </li> --}}
                             </div>
                         </ul>
                     </li>
@@ -142,26 +142,12 @@
                         </a>
                     </li>
 
-                    <li class="has-sub ">
-                        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
-                            data-target="#icons" aria-expanded="false" aria-controls="icons">
-                            <i class="mdi mdi-school"></i>
-                            <span class="nav-text">Log Book</span> <b class="caret"></b>
+                    {{-- <li class="has-sub ">
+                        <a class="sidenav-item-link" href="#">
+                            <i class="mdi mdi-book-variant"></i>
+                            <span class="nav-text">Log Book</span>
                         </a>
-
-                        <ul class="collapse " id="icons" data-parent="#sidebar-menu">
-                            <div class="sub-menu">
-                                @foreach ($dataMagangs as $tahunMagang)
-                                    <li class="">
-                                        <a class="sidenav-item-link" href="{{ route('magang.index') }}">
-                                            <span
-                                                class="nav-text">{{ $tahunMagang->tahunAjaran->tahun_magang . ' | ' . $tahunMagang->tahunAjaran->tahun_magang }}</span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </div>
-                        </ul>
-                    </li>
+                    </li> --}}
                 @endrole
 
                 @role('guru-pembimbing')
