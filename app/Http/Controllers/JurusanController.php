@@ -22,6 +22,11 @@ class JurusanController extends Controller
         return view('pages.jurusan.index', compact('jurusans'));
     }
 
+    public function create()
+    {
+        return view('pages.jurusan.create');
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -39,6 +44,13 @@ class JurusanController extends Controller
 
         return redirect()->route('jurusan.index')
             ->with('success', 'Data Added Successfully!');
+    }
+
+    public function edit(string $id)
+    {
+        $jurusan = Jurusan::findOrFail($id);
+
+        return view('pages.jurusan.edit', compact('jurusan'));
     }
 
 

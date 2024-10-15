@@ -2,114 +2,130 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="SISTEM INFORMASI MAGANG (SIMAG) SMK 6 PEKANBARU">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>SISMA SMK 6 PEKANBARU &mdash; SIGN IN</title>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>SIMAG SMK 6 PEKANBARU - Sign In</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/modules/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/modules/fontawesome/css/all.min.css') }}">
 
-    <!-- GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500"
-        rel="stylesheet" />
-    <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/modules/bootstrap-social/bootstrap-social.css') }}">
 
-    <!-- SLEEK CSS -->
-    <link id="sleek-css" rel="stylesheet" href="{{ asset('assets/dashboard/css/sleek.css') }}" />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/css/style.cs') }}s">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/css/components.css') }}">
+    <!-- Start GA -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-    <!-- FAVICON -->
-    <link href="{{ asset('assets/dashboard/img/favicon.png') }}" rel="shortcut icon" />
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-    <script src="{{ asset('assets/dashboard/plugins/nprogress/nprogress.js') }}"></script>
+        gtag('config', 'UA-94034622-3');
+    </script>
+    <!-- /END GA -->
 </head>
 
-<body class="" id="body"
-    style="background-image: url({{ asset('assets/dashboard/img/Bachground-login.jpg') }}); background-size: cover; background-repeat: no-repeat; background-position: top center;">
-    <div class="container d-flex align-items-center justify-content-center vh-100">
-        <div class="row justify-content-center">
-            <div class="col-lg-9 col-md-10">
-                <div class="card shadow-lg">
-                    <div class="card-header bg-primary">
-                        <div class="d-flex justify-content-start align-items-center">
-                            <img src="{{ asset('assets/dashboard/img/logo-smk-6.png') }}" alt="logo"
-                                class="brand-icon" width="60">
-                            <a href="{{ url('/') }}" class="text-white font-weight-bold ml-2">
-                                SISTEM INFORMASI MAGANG SMK 6 PEKANBARU
-                            </a>
+<body>
+    <div id="app">
+        <section class="section">
+            <div class="container mt-2">
+                <div class="row">
+                    <div
+                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-6 col-xl-6 offset-xl-3">
+                        <div class="login-brand">
+                            <img src="{{ asset('assets/img/logo-smk-6.png') }}" alt="logo" width="100"
+                                class="shadow-light rounded-circle">
                         </div>
-                    </div>
 
-                    <div class="card-body p-5">
-                        <h4 class="text-dark mb-5">Sign In</h4>
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>SISMA SIGN IN</h4>
+                            </div>
 
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('login') }}" class="needs-validation"
+                                    novalidate="">
+                                    @csrf
 
-                            <div class="row">
-                                <div class="form-group col-md-12 mb-4">
-                                    <input type="text" id="username" name="username" value="{{ old('username') }}"
-                                        class="form-control input-lg @error('username') is-invalid @enderror"
-                                        aria-describedby="emailHelp" placeholder="Username / Email" autofocus>
+                                    <div class="form-group">
+                                        <label for="username">Username / Email (Username NISN/NUPTK)</label>
+                                        <input id="username" name="username" type="text"
+                                            value="{{ old('username') }}"
+                                            class="form-control @error('username') is-invalid @enderror"
+                                            placeholder="Username / Email" tabindex="1" required autofocus>
 
-
-                                    @error('username')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @else
-                                        <span class="mt-2 d-block">Username berupa NISN Siswa Atau NUPTK Guru.</span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group col-md-12 ">
-                                    <input type="password" name="password" id="password"
-                                        class="form-control input-lg @error('password') is-invalid @enderror"
-                                        placeholder="Password">
-
-                                    @error('password')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="d-flex my-2 justify-content-between">
-                                        <div class="d-inline-block mr-3">
-                                            <label class="control control-checkbox">Remember me
-                                                <input type="checkbox" ame="remember" id="remember"
-                                                    {{ old('remember') ? 'checked' : '' }} />
-                                                <div class="control-indicator"></div>
-                                            </label>
-                                        </div>
-
-                                        {{-- <p><a class="text-blue" href="#">Forgot Your Password?</a></p> --}}
+                                        @error('username')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
 
-                                    <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Sign
-                                        In</button>
+                                    <div class="form-group">
+                                        <div class="d-block">
+                                            <label for="password" class="control-label">Password</label>
+                                        </div>
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            tabindex="2" placeholder="Password" required>
 
-                                    {{-- <p>Don't have an account yet ?
-                                        <a class="text-blue" href="sign-up.html">Sign Up</a>
-                                    </p> --}}
-                                </div>
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="remember" class="custom-control-input"
+                                                tabindex="3" id="remember-me" {{ old('remember') ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="remember-me">Remember Me</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                            <i class="fas fa-check-circle mr-2"></i>SIGN IN
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                        <div class="simple-footer">
+                            Copyright &copy; SISMA SMK 6 PEKANBARU {{ now()->format('Y') }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 
-    <!-- Javascript -->
-    <script src="{{ asset('assets/dashboard/plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/dashboard/js/sleek.js') }}"></script>
-    {{-- <link href="{{ asset('assets/dashboard/options/optionswitch.css') }}" rel="stylesheet"> --}}
-    {{-- <script src="{{ asset('assets/dashboard/options/optionswitcher.js') }}"></script> --}}
+    <!-- General JS Scripts -->
+    <script src="{{ asset('assets/dashboard/modules/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/modules/popper.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/modules/tooltip.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/stisla.js') }}"></script>
+
+    <!-- JS Libraies -->
+
+    <!-- Page Specific JS File -->
+
+    <!-- Template JS File -->
+    <script src="{{ asset('assets/dashboard/js/scripts.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/custom.js') }}"></script>
 </body>
 
 </html>

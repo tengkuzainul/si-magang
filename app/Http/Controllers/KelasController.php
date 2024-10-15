@@ -14,13 +14,19 @@ class KelasController extends Controller
     public function index()
     {
         $kelas = Kelas::with('jurusan')->get();
-        $jurusans = Jurusan::all();
 
         $title = 'Delete Kelas!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('pages.kelas.index', compact('kelas', 'jurusans'));
+        return view('pages.kelas.index', compact('kelas'));
+    }
+
+    public function create()
+    {
+        $jurusans = Jurusan::all();
+
+        return view('pages.kelas.create',  compact('jurusans'));
     }
 
     /**
@@ -44,6 +50,13 @@ class KelasController extends Controller
             ->with('success', 'Data Added Successfully!');
     }
 
+    public function edit(string $id)
+    {
+        $kelas = Kelas::findOrFail($id);
+        $jurusans = Jurusan::all();
+
+        return view('pages.kelas.edit',  compact('kelas', 'jurusans'));
+    }
 
     /**
      * Update the specified resource in storage.

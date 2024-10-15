@@ -30,19 +30,26 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
         Route::get('/siswa', 'siswaUser')->name('user.siswa');
         Route::get('/guru-pembimbing', 'gurpemUser')->name('user.guru-pembimbing');
         Route::get('/create', 'create')->name('user.create');
+        Route::post('/store', 'store')->name('user.store');
+        Route::get('/edit/{id}', 'edit')->name('user.edit');
+        Route::put('/update/{id}', 'update')->name('user.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('user.destroy');
     });
 
     Route::controller(KelasController::class)->prefix('kelas')->group(function () {
         Route::get('/index', 'index')->name('kelas.index');
         Route::get('/create', 'create')->name('kelas.create');
         Route::post('/store', 'store')->name('kelas.store');
+        Route::get('/edit/{id}', 'edit')->name('kelas.edit');
         Route::put('/update/{id}', 'update')->name('kelas.update');
         Route::delete('/destroy/{id}', 'destroy')->name('kelas.destroy');
     });
 
     Route::controller(JurusanController::class)->prefix('jurusan')->group(function () {
         Route::get('/index', 'index')->name('jurusan.index');
+        Route::get('/create', 'create')->name('jurusan.create');
         Route::post('/store', 'store')->name('jurusan.store');
+        Route::get('/edit/{id}', 'edit')->name('jurusan.edit');
         Route::put('/update/{id}', 'update')->name('jurusan.update');
         Route::delete('/destroy/{id}', 'destroy')->name('jurusan.destroy');
     });

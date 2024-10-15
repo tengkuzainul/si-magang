@@ -1,60 +1,36 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<head>
-    @include('layouts.head')
-</head>
+<!--- Layout tag head --->
+@include('layouts.head')
 
-<body class="header-fixed sidebar-static sidebar-light header-light" id="body">
+<body>
+    <!--- Sweetalert Package --->
     @include('sweetalert::alert')
 
-    <script>
-        NProgress.configure({
-            showSpinner: false
-        });
-        NProgress.start();
-    </script>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
 
+            <!--- Layout tag navbar --->
+            @include('layouts.navbar')
 
-    <!-- ====================================
-    ——— WRAPPER
-    ===================================== -->
-    <div class="wrapper">
-        <!-- ====================================
-          ——— LEFT SIDEBAR WITH OUT FOOTER
-        ===================================== -->
-        @include('layouts.sidebar')
+            <!--- Layout tag sidebar --->
+            @include('layouts.sidebar')
 
+            <!-- Main Content -->
+            <div class="main-content">
+                @yield('content')
+            </div>
 
-        <!-- ====================================
-        ——— PAGE WRAPPER
-        ===================================== -->
-        <div class="page-wrapper">
-
-            <!-- Header -->
-            @include('layouts.header')
-
-
-            <!-- ====================================
-          ——— CONTENT WRAPPER
-          ===================================== -->
-            <div class="content-wrapper">
-                <div class="content">
-                    @yield('breadcrumb')
-
-                    @yield('content')
-                </div> <!-- End Content -->
-            </div> <!-- End Content Wrapper -->
-
-
-            <!-- Footer -->
+            <!-- layouts tag footer -->
             @include('layouts.footer')
+        </div>
+    </div>
 
-        </div> <!-- End Page Wrapper -->
-    </div> <!-- End Wrapper -->
-
-    <!-- Javascript -->
+    <!-- Scripts JS Layouts -->
     @include('layouts.js')
+
 </body>
 
 </html>

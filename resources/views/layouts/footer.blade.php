@@ -1,13 +1,9 @@
-<footer class="footer mt-auto">
-    <div class="copyright bg-white">
-        <p>
-            Copyright &copy; <span id="copy-year"></span> SISTEM INFORMASI MAGANG <a class="text-primary"
-                href="https://web.smkn6pekanbaru.sch.id" target="_blank">SMK 6 PEKANBARU</a>.
-        </p>
+<footer class="main-footer">
+    <div class="footer-left">
+        Copyright &copy; {{ now()->format('Y') }} <div class="bullet"></div> <a href="{{ url('/') }}">Sistem Magang
+            SMK 6 Pekanbaru</a>
     </div>
-    <script>
-        var d = new Date();
-        var year = d.getFullYear();
-        document.getElementById("copy-year").innerHTML = year;
-    </script>
+    <div class="footer-right">
+
+    </div>
 </footer>
