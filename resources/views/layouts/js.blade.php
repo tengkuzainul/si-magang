@@ -19,8 +19,11 @@
 <script src="{{ asset('assets/dashboard/modules/select2/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('assets/dashboard/modules/jquery-selectric/jquery.selectric.min.js') }}"></script>
 
+
 <!-- Page Specific JS File -->
 <script src="{{ asset('assets/dashboard/js/page/bootstrap-modal.js') }}"></script>
+<!-- JS Libraies -->
+<script src="{{ asset('assets/dashboard/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
 
 <!-- JS Libraies -->
 <script src="{{ asset('assets/dashboard/modules/dropzonejs/min/dropzone.min.js') }}"></script>

@@ -40,9 +40,9 @@
                                             </th>
                                             <th>Image</th>
                                             <th>Name</th>
-                                            <th>Email / Username</th>
+                                            <th>Email</th>
+                                            <th>Username (NISN/NUPTK)</th>
                                             <th>Role</th>
-                                            <th>Reset Password</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -71,16 +71,12 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $user->name }}</td>
-                                                <td class="d-flex flex-column">
-                                                    <span>{{ $user->email }}</span>
-                                                    <span>{{ $user->username }}</span>
-                                                </td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->username }}</td>
                                                 <td>
                                                     <div class="badge badge-dark" style="text-transform: capitalize">
                                                         {{ $user->roles->first()->name }}</div>
                                                 </td>
-                                                <td><a href="#" class="btn btn-primary btn-sm"><i
-                                                            class="fas fa-key mr-2"></i>Reset Password</a></td>
                                                 <td>
                                                     <div class="d-flex justify-content-center align-items-center">
                                                         <a href="{{ route('user.edit', $user->id) }}"

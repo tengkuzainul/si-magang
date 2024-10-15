@@ -56,6 +56,13 @@ class MagangController extends Controller
         return view('pages.logbook.index', compact('magang', 'tahunAjaran'));
     }
 
+    public function lihatSuratLampiranMagang(string $id)
+    {
+        $lampiranSurat = Magang::findOrFail($id);
+
+        return view('pages.data-magang.lampiran-surat', compact('lampiranSurat'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

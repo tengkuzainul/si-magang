@@ -29,6 +29,9 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/modules/dropzonejs/dropzone.css') }}">
 
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/modules/chocolat/dist/css/chocolat.css') }}">
+
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/components.css') }}">

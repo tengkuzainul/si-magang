@@ -1,79 +1,93 @@
-@extends('layouts.app', ['title' => 'Tahun Ajaran Magang'])
-
-@section('breadcrumb')
-    <div class="breadcrumb-wrapper">
-        <h1>Tahun Ajaran Magang</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb p-0">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}">
-                        <span class="mdi mdi-home"></span>
-                    </a>
-                </li>
-                <li class="breadcrumb-item">
-                    Tahun Ajaran Magang
-                </li>
-                <li class="breadcrumb-item" aria-current="page">Data</li>
-            </ol>
-        </nav>
-    </div>
-@endsection
+@extends('layouts.app', ['title' => 'Tahun Magang'])
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-default">
-                <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                    <h2>Tahun Ajaran Magang</h2>
+    <section class="section">
+        <div class="section-header">
+            <h1>Tahun Magang</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
+                <div class="breadcrumb-item">Master Data</div>
+                <div class="breadcrumb-item"><a href="{{ route('tahun-magang.index') }}">Tahun Magang</a></div>
+            </div>
+        </div>
 
-                    <a href="{{ route('tahun-magang.create') }}" class="btn btn-outline-primary btn-sm text-uppercase">
-                        <i class=" mdi mdi-account-plus mr-1"></i>Add New Data
-                    </a>
-                </div>
+        <div class="section-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="section-title">Tahun Magang Data</h2>
 
-                <div class="card-body">
-                    <div class="responsive-data-table">
-                        <table id="responsive-data-table" class="table dt-responsive nowrap" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Kode Tahun Magang</th>
-                                    <th>Tahun Ajaran Magang</th>
-                                    <th>Tanggal Mulai</th>
-                                    <th>Tanggal Selesai</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
+                <a href="{{ route('tahun-magang.create') }}" class="btn btn-success rounded-pill px-3" data-toggle="tooltip"
+                    title="Create Tahun Magang"><i class="fas fa-plus-circle mr-2"></i>Create
+                    Tahun Magang</a>
+            </div>
 
-                            <tbody>
-                                @foreach ($magangs as $magang)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>
-                                            <span
-                                                class="mb-2 mr-2 badge badge-info rounded">{{ $magang->kd_tahun_magang }}</span>
-                                        </td>
-                                        <td>{{ $magang->tahun_magang }}</td>
-                                        <td>{{ date('d F Y', strtotime($magang->tanggal_mulai)) }}</td>
-                                        <td>{{ date('d F Y', strtotime($magang->tanggal_selesai)) }}</td>
-                                        <td>
-                                            <div class="d-flex justify-content-center align-items-center g-2">
-                                                <a href="{{ route('tahun-magang.edit', $magang->id) }}"
-                                                    class="mb-1 btn btn-primary btn-sm mr-2">
-                                                    <i class=" mdi mdi-pencil-box"></i></a>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h4>Tahun Magang</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table-2">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">
+                                                <div class="custom-checkbox custom-control">
+                                                    <input type="checkbox" data-checkboxes="mygroup"
+                                                        data-checkbox-role="dad" class="custom-control-input"
+                                                        id="checkbox-all">
+                                                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                                                </div>
+                                            </th>
+                                            <th>Kode Tahun Magang</th>
+                                            <th>Tahun Ajaran Magang</th>
+                                            <th>Tanggal Mulai</th>
+                                            <th>Tanggal Selesai</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($magangs as $magang)
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-checkbox custom-control">
+                                                        <input type="checkbox" data-checkboxes="mygroup"
+                                                            class="custom-control-input" id="checkbox-{{ $magang->id }}">
+                                                        <label for="checkbox-{{ $magang->id }}"
+                                                            class="custom-control-label">&nbsp;</label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="badge badge-dark" style="text-transform: capitalize">
+                                                        {{ $magang->kd_tahun_magang }}
+                                                    </div>
+                                                </td>
+                                                <td>{{ $magang->tahun_magang }}</td>
+                                                <td>{{ date('d F Y', strtotime($magang->tanggal_mulai)) }}</td>
+                                                <td>{{ date('d F Y', strtotime($magang->tanggal_selesai)) }}</td>
+                                                <td>
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <a href="{{ route('tahun-magang.edit', $magang->id) }}"
+                                                            class="btn btn-info mr-2 btn-sm" data-toggle="tooltip"
+                                                            title="{{ 'Edit ' . $magang->nama_kelas }}"><i
+                                                                class="fas fa-edit"></i></a>
 
-                                                <a href="{{ route('tahun-magang.destroy', $magang->id) }}"
-                                                    class="mb-1 btn btn-danger btn-sm" data-confirm-delete="true">
-                                                    <i class=" mdi mdi-delete"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                        <a href="{{ route('tahun-magang.destroy', $magang->id) }}"
+                                                            class="btn btn-danger btn-sm" data-confirm-delete="true"
+                                                            data-toggle="tooltip"
+                                                            title="{{ 'Delete ' . $magang->nama_kelas }}"><i
+                                                                class="fas fa-trash"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

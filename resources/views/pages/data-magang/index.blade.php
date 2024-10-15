@@ -1,185 +1,118 @@
 @extends('layouts.app', ['title' => 'Data Magang'])
 
-@section('breadcrumb')
-    <div class="breadcrumb-wrapper">
-        <h1>Data Magang</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb p-0">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}">
-                        <span class="mdi mdi-home"></span>
-                    </a>
-                </li>
-                <li class="breadcrumb-item">
-                    Data Magang
-                </li>
-                <li class="breadcrumb-item" aria-current="page">Data</li>
-            </ol>
-        </nav>
-    </div>
-@endsection
-
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-default">
-                <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                    <h2>Data Magang</h2>
+    <section class="section">
+        <div class="section-header">
+            <h1>Data Magang</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('magang.index') }}">Data Magang</a></div>
+            </div>
+        </div>
 
-                    @role('super-admin')
-                        <a href="{{ route('magang.create') }}" class="btn btn-outline-primary btn-sm text-uppercase">
-                            <i class=" mdi mdi-account-plus mr-1"></i>Add New Data
-                        </a>
-                    @endrole
-                </div>
+        <div class="section-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="section-title">Data Magang</h2>
 
-                <div class="card-body">
-                    <div class="responsive-data-table">
-                        <table id="responsive-data-table" class="table dt-responsive nowrap" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    @hasanyrole('super-admin|guru-pembimbing')
-                                        <th>Nama Siswa</th>
-                                    @endhasanyrole
-                                    @hasanyrole('super-admin|siswa')
-                                        <th>Nama Guru Pembimbing</th>
-                                    @endhasanyrole
-                                    <th>Tahun Magang | Periode</th>
-                                    <th>Tempat Magang</th>
-                                    <th>Lampiran</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
+                <a href="{{ route('magang.create') }}" class="btn btn-success rounded-pill px-3" data-toggle="tooltip"
+                    title="Create Tahun Magang"><i class="fas fa-plus-circle mr-2"></i>Create
+                    Data Magang</a>
+            </div>
 
-                            <tbody>
-                                @foreach ($dataMagangs as $dataMagang)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        @hasanyrole('super-admin|guru-pembimbing')
-                                            <td>{{ $dataMagang->siswa->name }}</td>
-                                        @endhasanyrole
-                                        @hasanyrole('super-admin|siswa')
-                                            <td>{{ $dataMagang->guruPembimbing->name }}</td>
-                                        @endhasanyrole
-                                        <td>
-                                            <div class="d-felex-flex-column g-2">
-                                                <p class="mb-1">
-                                                    {{ $dataMagang->tahunAjaran->tahun_magang }}
-                                                </p>
-                                                <p>
-                                                    {{ date('d M Y', strtotime($dataMagang->tahunAjaran->tanggal_mulai)) . ' - ' . date('d M Y', strtotime($dataMagang->tahunAjaran->tanggal_selesai)) }}
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td>{{ $dataMagang->tempat_magang }}</td>
-                                        <td>
-                                            <div class="d-flex flex-column g-2">
-                                                <button type="button" class="btn btn-dark btn-pill btn-sm mb-2"
-                                                    data-toggle="modal"
-                                                    data-target="#modalSuratMagang-{{ $dataMagang->id }}">
-                                                    <i class="mdi mdi-eye mr-2"></i>Surat Magang
-                                                </button>
-                                                <button type="button" class="btn btn-dark btn-pill btn-sm"
-                                                    data-toggle="modal"
-                                                    data-target="#modalSuratBalasan-{{ $dataMagang->id }}">
-                                                    <i class="mdi mdi-eye mr-2"></i>Surat Balasan
-                                                </button>
-                                            </div>
-                                        </td>
-
-                                        {{-- Modal Surat Magang --}}
-                                        <div class="modal fade" id="modalSuratMagang-{{ $dataMagang->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalTooltip" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle2">Surat Magang |
-                                                            {{ $dataMagang->siswa->name }}
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-                                                        <img src="{{ asset('surat-magang/' . $dataMagang->surat_magang) }}"
-                                                            alt="{{ $dataMagang->surat_magang }}" width="auto"
-                                                            class="img-fluid">
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger btn-pill"
-                                                            data-dismiss="modal">Close</button>
-                                                    </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h4>Data Magang</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table-2">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">
+                                                <div class="custom-checkbox custom-control">
+                                                    <input type="checkbox" data-checkboxes="mygroup"
+                                                        data-checkbox-role="dad" class="custom-control-input"
+                                                        id="checkbox-all">
+                                                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        {{-- End --}}
-
-                                        {{-- Modal Surat Magang --}}
-                                        <div class="modal fade" id="modalSuratBalasan-{{ $dataMagang->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalTooltip" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle2">Surat Balasan |
-                                                            {{ $dataMagang->siswa->name }}
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                            </th>
+                                            @hasanyrole('super-admin|guru-pembimbing')
+                                                <th>Nama Siswa</th>
+                                                <th>Kelas</th>
+                                            @endhasanyrole
+                                            @hasanyrole('super-admin|siswa')
+                                                <th>Nama Guru Pembimbing</th>
+                                            @endhasanyrole
+                                            <th>Tahun Magang | Periode</th>
+                                            <th>Tempat Magang</th>
+                                            <th>Lampiran</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($dataMagangs as $dataMagang)
+                                            <tr>
+                                                <td>
+                                                    <div class="custom-checkbox custom-control">
+                                                        <input type="checkbox" data-checkboxes="mygroup"
+                                                            class="custom-control-input"
+                                                            id="checkbox-{{ $dataMagang->id }}">
+                                                        <label for="checkbox-{{ $dataMagang->id }}"
+                                                            class="custom-control-label">&nbsp;</label>
                                                     </div>
-
-                                                    <div class="modal-body">
-                                                        <img src="{{ asset('surat-balasan/' . $dataMagang->surat_balasan) }}"
-                                                            alt="{{ $dataMagang->surat_magang }}" width="auto"
-                                                            class="img-fluid">
+                                                </td>
+                                                @hasanyrole('super-admin|guru-pembimbing')
+                                                    <td>
+                                                        {{ $dataMagang->siswa->name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $dataMagang->siswa->kelas->nama_kelas ?? 'Belum Ada Kelas' }}
+                                                    </td>
+                                                @endhasanyrole
+                                                @hasanyrole('super-admin|siswa')
+                                                    <td>{{ $dataMagang->guruPembimbing->name }}</td>
+                                                @endhasanyrole
+                                                <td>
+                                                    <div class="d-felex-flex-column g-2">
+                                                        <p class="mb-1">
+                                                            {{ $dataMagang->tahunAjaran->tahun_magang }}
+                                                        </p>
+                                                        <p>
+                                                            {{ date('d M Y', strtotime($dataMagang->tahunAjaran->tanggal_mulai)) . ' - ' . date('d M Y', strtotime($dataMagang->tahunAjaran->tanggal_selesai)) }}
+                                                        </p>
                                                     </div>
+                                                </td>
+                                                <td>{{ $dataMagang->tempat_magang }}</td>
+                                                <td>
+                                                    <a href="{{ route('magang.lihatSuratLampiranMagang', $dataMagang->id) }}"
+                                                        class="btn btn-dark rounded mb-2"><i
+                                                            class="fas fa-eye mr-2"></i>Lihat Lampiran</a>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <a href="{{ route('magang.edit', $dataMagang->id) }}"
+                                                            class="btn btn-info mr-2 btn-sm" data-toggle="tooltip"
+                                                            title="{{ 'Edit ' . $dataMagang->nama_kelas }}"><i
+                                                                class="fas fa-edit"></i></a>
 
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger btn-pill"
-                                                            data-dismiss="modal">Close</button>
+                                                        <a href="{{ route('magang.destroy', $dataMagang->id) }}"
+                                                            class="btn btn-danger btn-sm" data-confirm-delete="true"
+                                                            data-toggle="tooltip"
+                                                            title="{{ 'Delete ' . $dataMagang->nama_kelas }}"><i
+                                                                class="fas fa-trash"></i></a>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- End --}}
-
-                                        <td>
-                                            @role('super-admin')
-                                                <div class="d-flex justify-content-center align-items-center g-2">
-                                                    <a href="{{ route('magang.edit', $dataMagang->id) }}"
-                                                        class="mb-1 btn btn-primary btn-sm mr-2">
-                                                        <i class=" mdi mdi-pencil-box"></i></a>
-
-                                                    <a href="{{ route('magang.destroy', $dataMagang->id) }}"
-                                                        class="mb-1 btn btn-danger btn-sm" data-confirm-delete="true">
-                                                        <i class=" mdi mdi-delete"></i></a>
-                                                </div>
-                                            @endrole
-
-                                            <div class="d-flex flex-column mt-2">
-                                                <a href="{{ route('magang.tambahLogbook', $dataMagang->id) }}"
-                                                    class="btn btn-primary w-100 btn-pill">
-                                                    @role('siswa')
-                                                        <i class="mdi mdi-plus-circle mr-2"></i>Tambah Logbook
-                                                    @endrole
-                                                    @hasanyrole('super-admin|guru-pembimbing')
-                                                        <i class="mdi mdi-eye-circle mr-2"></i>Lihat Logbook
-                                                    @endhasanyrole
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

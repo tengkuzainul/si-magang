@@ -148,7 +148,6 @@ class UserManageController extends Controller
         return redirect()->route('user.all')->with('success', 'Data Updated Successfully!');
     }
 
-
     /**
      * Remove the specified resource from storage.
      */

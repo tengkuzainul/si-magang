@@ -16,7 +16,7 @@
                 <h2 class="section-title">Jurusan Data</h2>
 
                 <a href="{{ route('jurusan.create') }}" class="btn btn-success rounded-pill px-3" data-toggle="tooltip"
-                    title="Create Kelas"><i class="fas fa-plus-circle mr-2"></i>Create
+                    title="Create Jurusan"><i class="fas fa-plus-circle mr-2"></i>Create
                     Jurusan</a>
             </div>
 

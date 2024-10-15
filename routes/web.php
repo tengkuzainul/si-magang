@@ -87,6 +87,7 @@ Route::middleware(['auth', 'role:super-admin|guru-pembimbing|siswa'])->group(fun
     Route::controller(MagangController::class)->prefix('magang')->group(function () {
         Route::get('/index', 'index')->name('magang.index');
         Route::get('/tambah-logbook/{id}', 'tambahDataLogBook')->name('magang.tambahLogbook');
+        Route::get('/lampiran-surat/{id}', 'lihatSuratLampiranMagang')->name('magang.lihatSuratLampiranMagang');
     });
 });
 
