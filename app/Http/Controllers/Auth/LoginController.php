@@ -59,5 +59,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         Alert::success('SIMAG', 'Selamat Datang! ' . $user->name);
+        $user->last_login_at = now();
+        $user->save();
     }
 }

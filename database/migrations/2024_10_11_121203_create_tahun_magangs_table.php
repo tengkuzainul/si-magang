@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('tahun_magang');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
+            $table->enum('status_logbook', ['Aktif', 'Tutup']);
             $table->timestamps();
         });
     }

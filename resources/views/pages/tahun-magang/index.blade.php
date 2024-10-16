@@ -43,6 +43,7 @@
                                             <th>Tahun Ajaran Magang</th>
                                             <th>Tanggal Mulai</th>
                                             <th>Tanggal Selesai</th>
+                                            <th>Status Logbook</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -65,6 +66,26 @@
                                                 <td>{{ $magang->tahun_magang }}</td>
                                                 <td>{{ date('d F Y', strtotime($magang->tanggal_mulai)) }}</td>
                                                 <td>{{ date('d F Y', strtotime($magang->tanggal_selesai)) }}</td>
+                                                <td class="d-flex flex-column">
+                                                    <div class="badge badge-{{ $magang->status_logbook != 'Aktif' ? 'danger' : 'success' }} mb-2"
+                                                        style="text-transform: capitalize">
+                                                        {{ $magang->status_logbook }}
+                                                    </div>
+
+                                                    <a href="#"
+                                                        class="btn btn-{{ $magang->status_logbook != 'Aktif' ? 'success' : 'danger' }} btn-rounded btn-sm"
+                                                        onclick="event.preventDefault(); document.getElementById('changeStatusLogbook-{{ $magang->id }}').submit();">
+                                                        <i
+                                                            class="fas fa-{{ $magang->status_logbook != 'Aktif' ? 'check-circle' : 'times-circle' }} mr-3"></i>
+                                                        {{ $magang->status_logbook != 'Aktif' ? 'Aktifkan Logbook' : 'Tutup Logbook' }}
+                                                    </a>
+
+                                                    <form action="{{ route('tahun-magang.ubahStatus', $magang->id) }}"
+                                                        id="changeStatusLogbook-{{ $magang->id }}" method="post">
+                                                        @csrf
+                                                        @method('PUT')
+                                                    </form>
+                                                </td>
                                                 <td>
                                                     <div class="d-flex justify-content-center align-items-center">
                                                         <a href="{{ route('tahun-magang.edit', $magang->id) }}"

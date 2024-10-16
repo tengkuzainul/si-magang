@@ -18,5 +18,11 @@ class TahunMagang extends Model
         'tahun_magang',
         'tanggal_mulai',
         'tanggal_selesai',
+        'status_logbook'
     ];
+
+    public function magang()
+    {
+        return $this->hasMany(Magang::class, 'tahun_magang_id');
+    }
 }

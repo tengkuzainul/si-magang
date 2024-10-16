@@ -5,116 +5,305 @@
         <div class="section-header">
             <h1>Dashboard</h1>
         </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-primary">
-                        <i class="fas fa-graduation-cap"></i>
+
+        @role('super-admin')
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-primary">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Siswa</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $siswaCount }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-wrap">
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-danger">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Guru</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $guruCount }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-warning">
+                            <i class="fas fa-stream"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Jurusan</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $jurusanCount }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-success">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Kelas</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $kelasCount }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+                    <div class="card">
                         <div class="card-header">
-                            <h4>Total Siswa</h4>
+                            <h4>Jumlah Siswa Magang Tahun Sekarang</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <canvas id="myChart" height="182"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Aktivitas Pengguna</h4>
                         </div>
                         <div class="card-body">
-                            10
+                            <ul class="list-unstyled list-unstyled-border">
+                                <ul class="list-unstyled">
+                                    @foreach ($lastLogins as $login)
+                                        <li class="media">
+                                            <img class="mr-3 rounded-circle" width="50"
+                                                src="{{ $login['image'] ? asset('image-profile/' . $login['image']) : 'https://ui-avatars.com/api/?name=' . $login['name'] . '&background=000&color=f5f5f5&rounded=true' }}"
+                                                alt="avatar">
+                                            <div class="media-body">
+                                                <div class="float-right text-primary">
+                                                    {{ $login['last_login'] }}
+                                                </div>
+                                                <div class="media-title">{{ $login['name'] }}</div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        @endrole
 
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-danger">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Guru</h4>
-                        </div>
-                        <div class="card-body">
-                            42
-                        </div>
-                    </div>
-                </div>
-            </div>
+        @hasanyrole('guru-pembimbing|siswa')
+            <div class="section-body">
+                <h2 class="section-title">Hi, {{ Auth::user()->name }}!</h2>
+                <p class="section-lead">
+                    Welcome to SISMA SMK 6 PEKANBARU.
+                </p>
 
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-warning">
-                        <i class="fas fa-stream"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Jurusan</h4>
-                        </div>
-                        <div class="card-body">
-                            1,201
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-success">
-                        <i class="fas fa-school"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Kelas</h4>
-                        </div>
-                        <div class="card-body">
-                            47
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-8 col-md-12 col-12 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Jumlah Siswa Magang Tahun Sekarang</h4>
-                    </div>
-
-                    <div class="card-body">
-                        <canvas id="myChart" height="182"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-12 col-12 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Aktivitas Pengguna</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled list-unstyled-border">
-                            <li class="media">
-                                <img class="mr-3 rounded-circle" width="50"
-                                    src="{{ asset('assets/dashboard') }}/img/avatar/avatar-1.png" alt="avatar">
-                                <div class="media-body">
-                                    <div class="float-right text-primary">Now</div>
-                                    <div class="media-title">Farhan A Mujib</div>
-                                    <span class="text-small text-muted">Cras sit amet nibh libero, in
-                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                <div class="row mt-sm-4">
+                    <div class="col-12 col-md-12 col-lg-5">
+                        <div class="card profile-widget">
+                            <div class="profile-widget-header">
+                                <img alt="image"
+                                    src="{{ Auth::user()->image ? asset('image-profile/' . Auth::user()->image) : 'https://ui-avatars.com/api/?name=' . Auth::user()->name . '&background=000&color=f5f5f5&rounded=true' }}"
+                                    class="rounded-circle profile-widget-picture">
+                                <div class="profile-widget-items">
+                                    @role('guru-pembimbing')
+                                        <div class="profile-widget-item">
+                                            <div class="profile-widget-item-label">Jumlah Siswa Magang Dibimbing </div>
+                                            <div class="profile-widget-item-value">187</div>
+                                        </div>
+                                    @endrole
+                                    @role('siswa')
+                                        <div class="profile-widget-item">
+                                            <div class="profile-widget-item-label">Kelas </div>
+                                            <div class="profile-widget-item-value">
+                                                {{ Auth::user()->kelas->nama_kelas ?? '-' }}</div>
+                                        </div>
+                                        <div class="profile-widget-item">
+                                            <div class="profile-widget-item-label">Jurusan </div>
+                                            <div class="profile-widget-item-value">
+                                                {{ Auth::user()->kelas->jurusan->nama_jurusan ?? '-' }}</div>
+                                        </div>
+                                    @endrole
                                 </div>
-                            </li>
-                            <li class="media">
-                                <img class="mr-3 rounded-circle" width="50"
-                                    src="{{ asset('assets/dashboard') }}/img/avatar/avatar-2.png" alt="avatar">
-                                <div class="media-body">
-                                    <div class="float-right">12m</div>
-                                    <div class="media-title">Ujang Maman</div>
-                                    <span class="text-small text-muted">Cras sit amet nibh libero, in
-                                        gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                            </div>
+                            <div class="profile-widget-description">
+                                <div class="profile-widget-name">{{ Auth::user()->name }} <div
+                                        class="text-muted d-inline font-weight-normal">
+                                        <div class="slash"></div> <span
+                                            class="text-uppercase">{{ Auth::user()->roles->first()->name }}</span>
+                                    </div>
                                 </div>
-                            </li>
-                        </ul>
+                                Hallo <b>{{ Auth::user()->name }}</b>, Selamat datang di halaman Dashboard SISMA (Sistem
+                                Magang) SMK 6 PEKANBARU✨</b>.
+
+                                @role('guru-pembimbing')
+                                    <blockquote class="quote-teacher my-2">
+                                        <p class="font-weight-bold text-dark">"Guru yang baik adalah alasan mengapa siswa biasa
+                                            bermimpi untuk melakukan hal yang luar biasa" - {{ now()->format('d F Y') }}</p>
+                                    </blockquote>
+                                @endrole
+
+                                @role('siswa')
+                                    <blockquote class="quote-teacher my-2">
+                                        <p class="font-weight-bold text-dark">"Setiap orang memiliki pintu kesuksesan masing-masing,
+                                            tapi ingatlah pintu harus dibuka dengan KUNCI" - {{ now()->format('d F Y') }}</p>
+                                    </blockquote>
+                                @endrole
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-12 col-lg-7">
+                        <div class="card">
+                            <form method="POST" action="{{ route('profile.update') }}" class="needs-validation" novalidate=""
+                                enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="card-header">
+                                    <h4>Edit Profile</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-12">
+                                            <div class="d-flex justify-content-center mb-4">
+                                                @if (Auth::user()->image)
+                                                    <img id="selectedProfile"
+                                                        src="{{ asset('image-profile/' . Auth::user()->image) }}"
+                                                        class="rounded-circle" alt="image" width="100" height="100" />
+                                                @else
+                                                    <img id="selectedProfile"
+                                                        src="{{ 'https://ui-avatars.com/api/?name=' . Auth::user()->name . '&background=000&color=f5f5f5&rounded=true' }}"
+                                                        class="rounded-circle" alt="image" width="100"
+                                                        height="100" />
+                                                @endif
+                                            </div>
+                                            <div class="d-flex justify-content-center mb-2 mt-0">
+                                                <div data-mdb-ripple-init class="btn btn-primary btn-rounded btn-sm">
+                                                    <label class="form-label text-white m-1" for="customFile2"><i
+                                                            class="fas fa-upload mr-2"></i>Choose
+                                                        file</label>
+                                                    <input type="file" name="image" class="form-control d-none"
+                                                        id="customFile2"
+                                                        onchange="displaySelectedImage(event, 'selectedProfile')" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="name">Name</label>
+                                            <input type="text" name="name" id="name"
+                                                class="form-control @error('name') is-invalid @enderror"
+                                                value="{{ old('name', Auth::user()->name) }}" required="">
+
+                                            @error('name')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label
+                                                for="username">{{ Auth::user()->roles->first()->name == 'siswa' ? 'NISN' : 'NUPTK' }}</label>
+                                            <input type="text" name="username" id="username"
+                                                class="form-control @error('username') is-invalid @enderror"
+                                                value="{{ old('username', Auth::user()->username) }}" required="">
+
+                                            @error('username')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-12">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" id="email"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                value="{{ old('email', Auth::user()->email) }}" required="">
+
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="password">Password</label>
+                                            <input type="password" name="password" id="password"
+                                                class="form-control @error('password') is-invalid @enderror" value="">
+
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="password_confirmation">Password Confirmation</label>
+                                            <input type="password" name="password_confirmation" id="password_confirmation"
+                                                class="form-control @error('password_confirmation') is-invalid @enderror"
+                                                value="">
+
+                                            @error('password_confirmation')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-right">
+                                    <button class="btn btn-success btn-rounded px-3" type="submit"><i
+                                            class="fas fa-check-circle mr-2"></i>Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endhasanyrole
     </section>
+
+    <script>
+        function displaySelectedImage(event, elementId) {
+            const selectedImage = document.getElementById(elementId);
+            const fileInput = event.target;
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    selectedImage.src = e.target.result;
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
 @endsection

@@ -31,6 +31,8 @@
     <!-- Scripts JS Layouts -->
     @include('layouts.js')
 
+    @stack('dynamic-form-js')
+
 </body>
 
 </html>

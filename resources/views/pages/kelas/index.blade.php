@@ -41,6 +41,7 @@
                                             </th>
                                             <th>Kode Kelas</th>
                                             <th>Nama Kelas</th>
+                                            <th>Jurusan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -61,6 +62,11 @@
                                                     </div>
                                                 </td>
                                                 <td>{{ $kelasId->nama_kelas }}</td>
+                                                <td>
+                                                    <div class="badge badge-secondary" style="text-transform: capitalize">
+                                                        {{ $kelasId->jurusan->nama_jurusan }}
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <div class="d-flex justify-content-center align-items-center">
                                                         <a href="{{ route('kelas.edit', $kelasId->id) }}"

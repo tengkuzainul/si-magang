@@ -46,6 +46,7 @@ class TahunMagangController extends Controller
             'tahun_magang' => $request->tahun_ajaran_magang,
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai,
+            'status_logbook' => 'Aktif',
         ]);
 
         return redirect()->route('tahun-magang.index')->with('success', 'Data Added Successfully!');
@@ -80,9 +81,27 @@ class TahunMagangController extends Controller
             'tahun_magang' => $request->tahun_ajaran_magang,
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai,
+            'status_logbook' => 'Aktif',
         ]);
 
         return redirect()->route('tahun-magang.index')->with('success', 'Data Updated Successfully!');
+    }
+
+    public function ubahStatusLogbook(Request $request, string $id)
+    {
+        $tahunMagang = TahunMagang::findOrFail($id);
+
+        if ($tahunMagang->status_logbook == 'Tutup') {
+            $tahunMagang->status_logbook = 'Aktif';
+            $tahunMagang->save();
+
+            return redirect()->back()->with('success', 'Status Logbook Sudah Diaktifkan!');
+        } else {
+            $tahunMagang->status_logbook = 'Tutup';
+            $tahunMagang->save();
+
+            return redirect()->back()->with('success', 'Status Logbook Sudah Ditutup!');
+        }
     }
 
     /**

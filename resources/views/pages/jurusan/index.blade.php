@@ -41,6 +41,7 @@
                                             </th>
                                             <th>Kode Jurusan</th>
                                             <th>Nama Jurusan</th>
+                                            <th>List Kelas</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -61,6 +62,14 @@
                                                     </div>
                                                 </td>
                                                 <td>{{ $jurusan->nama_jurusan }}</td>
+                                                <td class="d-flex justify-content-start">
+                                                    @foreach ($jurusan->kelas as $list)
+                                                        <div class="badge badge-secondary mr-2"
+                                                            style="text-transform: capitalize">
+                                                            {{ $list->nama_kelas }}
+                                                        </div>
+                                                    @endforeach
+                                                </td>
                                                 <td>
                                                     <div class="d-flex justify-content-center align-items-center">
                                                         <a href="{{ route('jurusan.edit', $jurusan->id) }}"

@@ -5,6 +5,7 @@ use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\MagangController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TahunMagangController;
 use App\Http\Controllers\UserManageController;
 use Illuminate\Support\Facades\Auth;
@@ -60,6 +61,7 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
         Route::post('/store', 'store')->name('tahun-magang.store');
         Route::get('/edit/{id}', 'edit')->name('tahun-magang.edit');
         Route::put('/update/{id}', 'update')->name('tahun-magang.update');
+        Route::put('/ubah-tatus/{id}', 'ubahStatusLogbook')->name('tahun-magang.ubahStatus');
         Route::delete('/destroy/{id}', 'destroy')->name('tahun-magang.destroy');
     });
 
@@ -67,6 +69,10 @@ Route::middleware(['auth', 'role:super-admin'])->group(function () {
         Route::get('/edit/{id}', 'edit')->name('magang.edit');
         Route::put('/update/{id}', 'update')->name('magang.update');
         Route::delete('/destroy/{id}', 'destroy')->name('magang.destroy');
+    });
+
+    Route::controller(ProfileController::class)->prefix('profile')->group(function () {
+        Route::get('/edit', 'index')->name('profile.edit');
     });
 });
 
@@ -88,6 +94,10 @@ Route::middleware(['auth', 'role:super-admin|guru-pembimbing|siswa'])->group(fun
         Route::get('/index', 'index')->name('magang.index');
         Route::get('/tambah-logbook/{id}', 'tambahDataLogBook')->name('magang.tambahLogbook');
         Route::get('/lampiran-surat/{id}', 'lihatSuratLampiranMagang')->name('magang.lihatSuratLampiranMagang');
+    });
+
+    Route::controller(ProfileController::class)->prefix('profile')->group(function () {
+        Route::put('/update', 'update')->name('profile.update');
     });
 });
 

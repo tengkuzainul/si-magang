@@ -14,9 +14,11 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h2 class="section-title">Data Magang</h2>
 
-                <a href="{{ route('magang.create') }}" class="btn btn-success rounded-pill px-3" data-toggle="tooltip"
-                    title="Create Tahun Magang"><i class="fas fa-plus-circle mr-2"></i>Create
-                    Data Magang</a>
+                @role('super-admin')
+                    <a href="{{ route('magang.create') }}" class="btn btn-success rounded-pill px-3" data-toggle="tooltip"
+                        title="Create Tahun Magang"><i class="fas fa-plus-circle mr-2"></i>Create
+                        Data Magang</a>
+                @endrole
             </div>
 
             <div class="row">
@@ -91,18 +93,38 @@
                                                             class="fas fa-eye mr-2"></i>Lihat Lampiran</a>
                                                 </td>
                                                 <td>
-                                                    <div class="d-flex justify-content-center align-items-center">
-                                                        <a href="{{ route('magang.edit', $dataMagang->id) }}"
-                                                            class="btn btn-info mr-2 btn-sm" data-toggle="tooltip"
-                                                            title="{{ 'Edit ' . $dataMagang->nama_kelas }}"><i
-                                                                class="fas fa-edit"></i></a>
+                                                    @role('super-admin')
+                                                        <div class="d-flex justify-content-center align-items-center">
+                                                            <a href="{{ route('magang.edit', $dataMagang->id) }}"
+                                                                class="btn btn-info mr-2 btn-sm" data-toggle="tooltip"
+                                                                title="{{ 'Edit ' . $dataMagang->nama_kelas }}"><i
+                                                                    class="fas fa-edit"></i></a>
 
-                                                        <a href="{{ route('magang.destroy', $dataMagang->id) }}"
-                                                            class="btn btn-danger btn-sm" data-confirm-delete="true"
-                                                            data-toggle="tooltip"
-                                                            title="{{ 'Delete ' . $dataMagang->nama_kelas }}"><i
-                                                                class="fas fa-trash"></i></a>
-                                                    </div>
+                                                            <a href="{{ route('magang.destroy', $dataMagang->id) }}"
+                                                                class="btn btn-danger btn-sm" data-confirm-delete="true"
+                                                                data-toggle="tooltip"
+                                                                title="{{ 'Delete ' . $dataMagang->nama_kelas }}"><i
+                                                                    class="fas fa-trash"></i></a>
+                                                        </div>
+                                                    @endrole
+
+                                                    @hasanyrole('super-admin|guru-pembimbing')
+                                                        <div class="d-flex flex-column mt-2">
+                                                            <a href="{{ route('magang.tambahLogbook', $dataMagang->id) }}"
+                                                                class="btn btn-primary mr-2" data-toggle="tooltip"
+                                                                title="{{ 'Lihat Logbook ' . $dataMagang->siswa->name }}"><i
+                                                                    class="fas fa-eye mr-2"></i>Lihat Logbook</a>
+                                                        </div>
+                                                    @endhasanyrole
+
+                                                    @hasrole('siswa')
+                                                        <div class="d-flex flex-column">
+                                                            <a href="{{ route('magang.tambahLogbook', $dataMagang->id) }}"
+                                                                class="btn btn-primary mr-2 " data-toggle="tooltip"
+                                                                title="{{ $dataMagang->tahunAjaran?->status_logbook == 'Tutup' ? 'Lihat Logbook ' . $dataMagang->tahunAjaran?->tahun_magang : 'Buat Logbook ' . $dataMagang->tahunAjaran?->tahun_magang }}"><i
+                                                                    class="fas fa-{{ $dataMagang->tahunAjaran->status_logbook == 'Tutup' ? 'eye' : 'plus-circle' }} mr-2"></i>{{ $dataMagang->tahunAjaran->status_logbook == 'Tutup' ? 'Lihat Logbook' : 'Buat Logbook' }}</a>
+                                                        </div>
+                                                    @endhasrole
                                                 </td>
                                             </tr>
                                         @endforeach

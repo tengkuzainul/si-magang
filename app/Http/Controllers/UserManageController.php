@@ -115,10 +115,8 @@ class UserManageController extends Controller
         $request->validate([
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'name' => 'sometimes|string|max:255',
-            'kelas_id' => 'sometimes|exists:kelas,id',
             'username' => 'sometimes|string|max:255|unique:users,username,' . $user->id,
             'email' => 'sometimes|email|max:255|unique:users,email,' . $user->id,
-            'role' => 'sometimes|exists:roles,name',
             'password' => 'nullable|string|confirmed',
         ]);
 
@@ -130,6 +128,8 @@ class UserManageController extends Controller
             $imageProfile = $request->file('image');
             $imageProfileName = time() . '_image-profile.' . $imageProfile->getClientOriginalExtension();
             $imageProfile->move(public_path('image-profile'), $imageProfileName);
+        } else {
+            $imageProfileName = $user->image;
         }
 
         $user->update([
@@ -140,6 +140,7 @@ class UserManageController extends Controller
             'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
             'image' => $imageProfileName,
         ]);
+
 
         if ($request->filled('role')) {
             $user->syncRoles([$request->role]);

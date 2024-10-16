@@ -8,6 +8,7 @@ use App\Models\User;
 use DragonCode\Support\Facades\Filesystem\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class MagangController extends Controller
 {
@@ -89,10 +90,18 @@ class MagangController extends Controller
         $request->validate([
             'nama_siswa' => 'nullable|exists:users,id',
             'guru_pembimbing' => 'required|exists:users,id',
-            'tahun_magang' => 'required|exists:tahun_magangs,id',
+            'tahun_magang' => [
+                'required',
+                'exists:tahun_magangs,id',
+                Rule::unique('magangs', 'tahun_magang_id')->where(function ($query) use ($request) {
+                    return $query->where('siswa_id', $request->input('nama_siswa') ?? Auth::user()->id);
+                })
+            ],
             'tempat_magang' => 'required|string|min:1',
             'surat_magang' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'surat_balasan' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ], [
+            'tahun_magang.unique' => 'Siswa sudah terdaftar di tahun magang ini.'
         ]);
 
         if ($request->hasFile('surat_magang')) {

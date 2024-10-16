@@ -80,6 +80,10 @@ class LogBookController extends Controller
                 $logbook->status = 'Disetujui';
                 $logbook->save();
                 return redirect()->back()->with('success', 'Status logbook berhasil diubah menjadi Disetujui.');
+            } else {
+                $logbook->status = 'Menunggu';
+                $logbook->save();
+                return redirect()->back()->with('success', 'Status logbook disetujui berhasil dibatalkan!');
             }
 
             return redirect()->back()->with('info', 'Logbook sudah disetujui sebelumnya.');
