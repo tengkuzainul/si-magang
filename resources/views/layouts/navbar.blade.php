@@ -30,9 +30,13 @@
                 <div class="dropdown-title">
                     {{ Auth::user()->last_login_at ? \Carbon\Carbon::parse(Auth::user()->last_login_at)->diffForHumans() : 'Offline' }}
                 </div>
-                <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile
-                </a>
+
+                @role('super-admin')
+                    <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
+                        <i class="far fa-user"></i> Profile
+                    </a>
+                @endrole
+
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
                     onclick="event.preventDefault();
