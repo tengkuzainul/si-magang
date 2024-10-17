@@ -53,3 +53,15 @@
 <!-- Template JS File -->
 <script src="{{ asset('assets/dashboard/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/dashboard/js/custom.js') }}"></script>
+
+{{-- <script>
+    document.querySelectorAll('button.btn, a.btn').forEach(element => {
+        element.addEventListener('click', function() {
+            this.classList.add('btn-progress');
+
+            setTimeout(() => {
+                this.classList.remove('progress');
+            }, 2000);
+        });
+    });
+</script> --}}
